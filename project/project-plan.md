@@ -70,16 +70,10 @@ Each dataset includes average precipitation for a given month of all the federal
 4. Example Issue [#4][i4]
 5. Example Issue [#5][i5]
 6. Example Issue [#6][i6]
-7. Example Issue [#7][i7]
-8. Example Issue [#8][i8]
-9. Example Issue [#9][i9]
 
-[i1]: https://github.com/jvalue/made-template/issues/1
-[i2]: https://github.com/jvalue/made-template/issues/1
-[i3]: https://github.com/jvalue/made-template/issues/1
-[i4]: https://github.com/jvalue/made-template/issues/1
-[i5]: https://github.com/jvalue/made-template/issues/1
-[i6]: https://github.com/jvalue/made-template/issues/1
-[i7]: https://github.com/jvalue/made-template/issues/1
-[i8]: https://github.com/jvalue/made-template/issues/1
-[i9]: https://github.com/jvalue/made-template/issues/1
+[i1]: https://github.com/kristikotini/made-template/issues/1
+[i2]: https://github.com/kristikotini/made-template/issues/2
+[i3]: https://github.com/kristikotini/made-template/issues/3
+[i4]: https://github.com/kristikotini/made-template/issues/4
+[i5]: https://github.com/kristikotini/made-template/issues/5
+[i6]: https://github.com/kristikotini/made-template/issues/6
