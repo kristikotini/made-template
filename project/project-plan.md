@@ -24,7 +24,6 @@ This analysis aims to reveal patterns, correlations, and potential causal relati
 ### Datasource1: Accidents: Federal states, months, location, severity of injury
 * Metadata URL: [Accidents Metadata](https://www.govdata.de/ckan/dataset/verungluckte-bundeslander-monate-ortslage-schwere-derverletzung.rdf)
 * Data URL: [Accidents Data](https://www-genesis.destatis.de/genesis/downloads/00/tables/46241-0024_00.csv)
-* https://opendata.dwd.de/climate_environment/CDC/regional_averages_DE/monthly/precipitation/regional_averages_rr_06.txt
 * Data Type: `text/CSV`
 
 
