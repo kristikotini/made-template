@@ -1,8 +1,8 @@
 Project Plan
 ===============
 
-# Assessing the Impact of Weather on Accidents in German Regions
----------------
+Assessing the Impact of Weather on Accidents in German Regions
+---------------------------------------------------------------
 
 
 ## Main Question
@@ -64,12 +64,12 @@ Each dataset includes average precipitation for a given month of all the federal
 
 ## Work Packages
 
-1. Example Issue [#1][i1]
-2. Example Issue [#2][i2]
-3. Example Issue [#3][i3]
-4. Example Issue [#4][i4]
-5. Example Issue [#5][i5]
-6. Example Issue [#6][i6]
+1. Data pipeline enhancement [#1][i1]
+2. Tests for Pipeline [#2][i2]
+3. Questions and relations [#3][i3]
+4. Visuals [#4][i4]
+5. Final report [#5][i5]
+6. General refactor & last enhancements [#6][i6]
 
 [i1]: https://github.com/kristikotini/made-template/issues/1
 [i2]: https://github.com/kristikotini/made-template/issues/2
