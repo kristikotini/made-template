@@ -10,9 +10,9 @@ def write_to_db(df: pd.DataFrame):
         'DS100': 'TEXT',
         'IFOPT': 'TEXT',
         'Verkeher': 'TEXT',
-        'Laenge': 'INTEGER',
-        'Breite': 'INTEGER',
-        'Betreiber_Name': 'INTEGER',
+        'Laenge': 'REAL',
+        'Breite': 'REAL',
+        'Betreiber_Name': 'TEXT',
         'Betreiber_Nr': 'INTEGER',
     }
     df.to_sql('trainstops', conn, index=False, if_exists='replace', dtype=dtypes)
