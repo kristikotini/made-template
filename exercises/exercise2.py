@@ -25,7 +25,7 @@ def execute_trainstops_pipeline():
     df.drop(['Status'], axis=1, inplace=True)
     df.dropna(how='any', inplace=True)
 
-    ifopt_pattern = '^[A-Za-z]{2}:\d*(?::\d+)?$'
+    ifopt_pattern = '^[A-Za-z]{2}:\d*:\d*(?::\d*)?$'
     df = df.drop(df[(~df['Verkehr'].isin(['FV', 'RV', 'nur DPN']))].index)
 
     df['Laenge'] = df['Laenge'].str.replace(',', '.').astype(float)
