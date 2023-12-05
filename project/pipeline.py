@@ -9,11 +9,11 @@ class Pipeline:
 
     def execute_pipeline(self):
         print('------Pipeline started------')
-        self.create_traffic_accident_data_csv_file()
-        self.create_weather_data_csv_file()
+        self.create_traffic_accident_data_pickle_file()
+        self.create_weather_data_pickle_file()
         print('------Pipeline finished------')
 
-    def create_traffic_accident_data_csv_file(self):
+    def create_traffic_accident_data_pickle_file(self):
         print('Loading traffic data from remote...')
         df = pd.read_csv(
             self.traffic_accident_data,
@@ -37,11 +37,11 @@ class Pipeline:
         df[str_columns] = df[str_columns].astype(str)
         df[months_list[:-1]] = df[months_list[:-1]].astype(int)
         df = self._get_translated_traffic_data(df)
-        print('Saving transformed data in csv...')
-        df.to_csv('data/traffic_accident.csv', sep=';', index=False)
+        print('Saving transformed data in pickle...')
+        df.to_pickle('data/traffic_accident.pkl')
         print('Saving finished')
 
-    def create_weather_data_csv_file(self):
+    def create_weather_data_pickle_file(self):
         states_info = {
             'Brandenburg/Berlin': 'Berlin',  #
             'Brandenburg': 'Brandenburg',
@@ -96,8 +96,8 @@ class Pipeline:
         print('Data constructed')
 
         rain_prec_df = self._construct_rain_prec_df(data)
-        print('Saving transformed data in csv...')
-        rain_prec_df.to_csv('data/precipitation.csv', sep=';', index=False)
+        print('Saving transformed data in pickle...')
+        rain_prec_df.to_pickle('data/precipitation.pkl')
         print('Saving finished')
 
     @staticmethod
