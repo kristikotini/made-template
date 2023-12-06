@@ -1,6 +1,6 @@
 import pandas as pd
 
-from custom_types import ProcessorReplaceConfig
+from project.custom_types import ProcessorReplaceConfig
 
 ALL_COLUMNS = 'replace_on_all_columns'
 

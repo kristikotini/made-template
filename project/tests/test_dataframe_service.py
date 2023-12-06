@@ -4,9 +4,9 @@ import pandas as pd
 import pytest
 from pandas._testing import assert_frame_equal
 
-from dataframe_service import DataFrameService
-from tests.test_data.test_data_dataframe_service import REPLACE_TEST_CASES, COLUMNS_TO_STR_TEST_CASES
-from tests.utils import ParameterizationStruct
+from project.dataframe_service import DataFrameService
+from project.tests.test_data.test_data_dataframe_service import REPLACE_TEST_CASES, COLUMNS_TO_STR_TEST_CASES
+from project.tests.utils import ParameterizationStruct
 
 
 @pytest.mark.parametrize('test_case', REPLACE_TEST_CASES)
@@ -35,7 +35,7 @@ def test_columns_to_str(test_case: ParameterizationStruct):
     assert_frame_equal(df, test_case.output)
 
 
-@patch('dataframe_service.DataFrameService.df_to_pickle')
+@patch('project.dataframe_service.DataFrameService.df_to_pickle')
 def test_df_to_pickle(mocked_to_pickle):
     # Arrange
     service = DataFrameService()

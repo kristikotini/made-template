@@ -1,8 +1,14 @@
 import numpy as np
 import pandas as pd
 
-from dataframe_service import ALL_COLUMNS
-from tests.utils import ParameterizationStruct
+import os
+
+# Get and print the current working directory
+current_directory = os.getcwd()
+print("Current Working Directory:", current_directory)
+
+from project.dataframe_service import ALL_COLUMNS
+from project.tests.utils import ParameterizationStruct
 
 REPLACE_TEST_CASES: list[ParameterizationStruct] = [
     ParameterizationStruct(

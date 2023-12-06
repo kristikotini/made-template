@@ -1,13 +1,12 @@
-from random import choices
 from unittest.mock import patch
 
 import numpy as np
 
-from pipeline import Pipeline
-from tests.utils import validate_column_choices, PLACE_NAMES, STATE_NAMES, SEVERITY_NAMES
+from project.pipeline import Pipeline
+from project.tests.utils import validate_column_choices, PLACE_NAMES, STATE_NAMES, SEVERITY_NAMES
 
 
-@patch('dataframe_service.DataFrameService.df_to_pickle')
+@patch('project.dataframe_service.DataFrameService.df_to_pickle')
 def test_pipeline_run_successfully(mocked_to_pickle):
     # Arrange
     pipeline = Pipeline()

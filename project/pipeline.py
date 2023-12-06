@@ -2,9 +2,9 @@ from collections import defaultdict
 
 import pandas as pd
 
-from dataframe_service import DataFrameService as Dfs
-from const_values import SEVERITY_TRANSLATION, PLACE_TRANSLATION
-from custom_types import ProcessorReplaceConfig
+from project.const_values import PLACE_TRANSLATION, SEVERITY_TRANSLATION
+from project.custom_types import ProcessorReplaceConfig
+from project.dataframe_service import DataFrameService as Dfs
 
 
 class Pipeline:
