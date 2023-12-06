@@ -2,6 +2,10 @@ from collections import defaultdict
 
 import pandas as pd
 
+from dataframe_service import DataFrameService as Dfs
+from const_values import SEVERITY_TRANSLATION, PLACE_TRANSLATION
+from custom_types import ProcessorReplaceConfig
+
 
 class Pipeline:
     traffic_accident_data = "https://www-genesis.destatis.de/genesis/downloads/00/tables/46241-0024_00.csv"
@@ -9,11 +13,15 @@ class Pipeline:
 
     def execute_pipeline(self):
         print('------Pipeline started------')
-        self.create_traffic_accident_data_pickle_file()
-        self.create_weather_data_pickle_file()
+        Dfs.df_to_pickle(
+            self.create_traffic_accident_df(), 'data/traffic_accident.pkl'
+        )
+        Dfs.df_to_pickle(
+            self.create_weather_df(), 'data/precipitation.pkl'
+        )
         print('------Pipeline finished------')
 
-    def create_traffic_accident_data_pickle_file(self):
+    def create_traffic_accident_df(self) -> pd.DataFrame:
         print('Loading traffic data from remote...')
         df = pd.read_csv(
             self.traffic_accident_data,
@@ -25,28 +33,31 @@ class Pipeline:
         print('Data loaded')
 
         months_list = self._get_months_for_traffic_data(df)
-        new_header = ["state", "place", "severity"] + months_list
 
+        # fix the header for the df
+        new_header = ["state", "place", "severity"] + months_list
         new_header = [el.lower() for el in new_header]
         df = df[2:]
         df.columns = new_header
+
+        # remove december (last month) no data for it
         df.drop(df.columns[-1], axis=1, inplace=True)
+        df = Dfs.columns_to_str(df, ["state", "place", "severity"])
+
+        # clean up the rows that have `-` to be 0
         df.iloc[:, 3:] = df.iloc[:, 3:].replace({'-': 0})
-        str_columns = ["state", "place", "severity"]
-
-        df[str_columns] = df[str_columns].astype(str)
+        # cast to int the months precipitation
         df[months_list[:-1]] = df[months_list[:-1]].astype(int)
-        df = self._get_translated_traffic_data(df)
-        print('Saving transformed data in pickle...')
-        df.to_pickle('data/traffic_accident.pkl')
-        print('Saving finished')
 
-    def create_weather_data_pickle_file(self):
+        df = self._get_translated_traffic_data(df)
+        return df
+
+    def create_weather_df(self) -> pd.DataFrame:
         states_info = {
-            'Brandenburg/Berlin': 'Berlin',  #
+            'Brandenburg/Berlin': 'Berlin',
             'Brandenburg': 'Brandenburg',
-            'Baden-Wuerttemberg': 'Baden-Württemberg',  #
-            'Bayern': 'Bayern',  #
+            'Baden-Wuerttemberg': 'Baden-Württemberg',
+            'Bayern': 'Bayern',
             'Hessen': 'Hessen',
             'Mecklenburg-Vorpommern': 'Mecklenburg-Vorpommern',
             'Niedersachsen': 'Niedersachsen',
@@ -86,6 +97,7 @@ class Pipeline:
 
                 elif translation is None:
                     df.drop(state, axis=1, inplace=True)
+
             df['date'] = '1-' + df['Monat'].astype(str) + '-' + df['Jahr'].astype(str)
             df.drop(['Jahr', 'Monat'], axis=1, inplace=True)
 
@@ -96,12 +108,10 @@ class Pipeline:
         print('Data constructed')
 
         rain_prec_df = self._construct_rain_prec_df(data)
-        print('Saving transformed data in pickle...')
-        rain_prec_df.to_pickle('data/precipitation.pkl')
-        print('Saving finished')
+        return rain_prec_df
 
     @staticmethod
-    def _get_months_for_traffic_data(df) -> list[str]:
+    def _get_months_for_traffic_data(df: pd.DataFrame) -> list[str]:
         years = df.iloc[0, 3:].values.tolist()
         months = df.iloc[1, 3:].values.tolist()
         year_months_first_line = []
@@ -128,22 +138,11 @@ class Pipeline:
         return year_months_first_line
 
     @staticmethod
-    def _get_translated_traffic_data(df):
-        place_translation = {
-            'innerorts': 'inner town',
-            'außerorts (ohne Autobahnen)': 'out of town (without motorways)',
-            'auf Autobahnen': 'on highways',
-            'Insgesamt': 'In total',
-        }
-        severity_translation = {
-            'Getötete': 'Killed',
-            'Leichtverletzte': 'Slightly injured',
-            'Schwerverletzte': 'Seriously injured',
-            'Insgesamt': 'In total',
-        }
-
-        df['place'] = df['place'].replace(place_translation)
-        df['severity'] = df['severity'].replace(severity_translation)
+    def _get_translated_traffic_data(df: pd.DataFrame) -> pd.DataFrame:
+        Dfs.replace(df, fields=[
+            ProcessorReplaceConfig(column_name='place', values=PLACE_TRANSLATION),
+            ProcessorReplaceConfig(column_name='severity', values=SEVERITY_TRANSLATION),
+        ])
         return df
 
     @staticmethod
