@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - feat/github_pipeline
     paths:
     - project/**
 
@@ -22,6 +23,11 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: 3.11
+
+    - name: Display current directory
+      run: |
+        echo "Current directory: ${{ github.workspace }}"
+        ls ${{ github.workspace }}
 
     - name: Install dependencies
       run: pip install -r project/requirements.txt
