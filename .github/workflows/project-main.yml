@@ -23,6 +23,11 @@ jobs:
       with:
         python-version: 3.11
 
+    - name: Display current directory
+      run: |
+        echo "Current directory: ${{ github.workspace }}"
+        ls ${{ github.workspace }}
+
     - name: Install dependencies
       run: pip install -r project/requirements.txt
 
