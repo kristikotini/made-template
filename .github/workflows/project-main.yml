@@ -24,12 +24,11 @@ jobs:
       with:
         python-version: 3.11
 
+    - name: Change working directory to 'project'
+      run: cd project
+
     - name: Install dependencies
       run: pip install -r project/requirements.txt
-      with:
-        path: main
 
     - name: Run tests
       run: bash project/tests.sh
-      with:
-        path: main
