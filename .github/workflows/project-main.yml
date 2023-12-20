@@ -25,10 +25,10 @@ jobs:
         python-version: 3.11
 
     - name: Change working directory to 'project'
-      run: cd project
+      run: cd main/project
 
     - name: Install dependencies
-      run: pip install -r project/requirements.txt
+      run: pip install -r requirements.txt
 
     - name: Run tests
-      run: bash project/tests.sh
+      run: bash tests.sh
