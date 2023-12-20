@@ -45,3 +45,7 @@ def test_create_weather_df():
     # all traffic values for each year are of type int
     column_types = df.iloc[:, 1:].dtypes
     assert all(np.issubdtype(dtype, np.floating) for dtype in column_types)
+
+
+def test_fail():
+    assert False
