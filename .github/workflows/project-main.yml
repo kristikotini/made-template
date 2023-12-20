@@ -27,8 +27,14 @@ jobs:
     - name: Change working directory to 'project'
       run: cd main/project
 
+    - name: Display current directory
+      run: |
+        echo "Current directory: ${{ github.workspace }}"
+        ls ${{ github.workspace }}
+
+
     - name: Install dependencies
-      run: pip install -r requirements.txt
+      run: pip install -r ./requirements.txt
 
     - name: Run tests
       run: bash tests.sh
