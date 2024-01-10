@@ -47,7 +47,9 @@ class Pipeline:
         # clean up the rows that have `-` to be 0
         df.iloc[:, 3:] = df.iloc[:, 3:].replace({'-': 0})
         # cast to int the months precipitation
-        df[months_list[:-1]] = df[months_list[:-1]].astype(int)
+        index = months_list.index("1-9-2023")
+        mask = months_list[:index + 1]
+        df[mask] = df[mask].astype(int)
 
         df = self._get_translated_traffic_data(df)
         return df
@@ -85,7 +87,7 @@ class Pipeline:
                 encoding='latin',
             )
             df.drop(df.columns[-2:], axis=1, inplace=True)
-            df = df[df['Jahr'].isin([2021, 2022])]
+            df = df[df['Jahr'].isin([2022, 2023])]
             for state, translation in states_info.items():
                 if type(translation) is str:
                     df.rename(columns={state: translation}, inplace=True)
@@ -148,7 +150,7 @@ class Pipeline:
     @staticmethod
     def _construct_rain_prec_df(data: dict):
         dates = []
-        for year in ['2021', '2022']:
+        for year in ['2022', '2023']:
             for month in range(1, 13):
                 dates.append(f'1-{month}-{year}')
 

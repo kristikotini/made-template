@@ -29,7 +29,7 @@ def test_create_traffic_accident_df():
     assert validate_column_choices(df, 'severity', SEVERITY_NAMES)
 
     # all traffic values for each year are of type int
-    column_types = df.iloc[:, 3:].dtypes
+    column_types = df.iloc[:, 3:-2].dtypes
     assert all(np.issubdtype(dtype, np.integer) for dtype in column_types)
 
 
