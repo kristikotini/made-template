@@ -163,7 +163,7 @@ class Pipeline:
             for year, rain in value.items():
                 new_row[year] = rain
             empty_df = pd.concat([empty_df, pd.DataFrame([new_row])], ignore_index=True)
-        return empty_df.drop(columns=['1-12-2022'])
+        return empty_df
 
 
 if __name__ == "__main__":

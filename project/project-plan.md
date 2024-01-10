@@ -27,7 +27,7 @@ This analysis aims to reveal patterns, correlations, and potential causal relati
 * Data Type: `text/CSV`
 
 
-This dataset includes road traffic accident statistics for 10 federal states in Germany throughout the timeline [**Jan-2021**, **Nov-2022**]. <br>
+This dataset includes road traffic accident statistics for 10 federal states in Germany throughout the timeline [**2022**, **2023 (not complete)**]. <br>
 It has information for each state divided on the following sub-categories:
 
 - Place/Ortslage

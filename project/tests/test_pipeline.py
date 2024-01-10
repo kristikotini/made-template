@@ -39,7 +39,7 @@ def test_create_weather_df():
     # Act
     df = pipeline.create_weather_df()
     # Assert
-    assert len(df.columns) == 24
+    assert len(df.columns) == 25
     assert validate_column_choices(df, 'state', STATE_NAMES)
 
     # all traffic values for each year are of type int
