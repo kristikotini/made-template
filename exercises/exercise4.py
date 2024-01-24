@@ -3,6 +3,7 @@ import sqlite3
 import zipfile
 from urllib.request import urlretrieve
 
+import numpy as np
 import pandas as pd
 
 
@@ -30,22 +31,25 @@ def process_data(df: pd.DataFrame) -> pd.DataFrame:
                       "Batterietemperatur in °C", "Geraet aktiv"]
 
     # Remove all columns to the right of 'Geraet aktiv'
-    column_index = df.columns.get_loc('Geraet aktiv')
-    df = df.iloc[:, :10 + 1]
+    column_index_bool_mask = df.columns.get_loc('Geraet aktiv')
+    first_occ_geraet_index = np.argmax(column_index_bool_mask)
+    df = df.iloc[:, :first_occ_geraet_index + 1]
     df = df[columns_to_use]
 
     df = df.rename(columns={
         "Temperatur in °C (DWD)": "Temperatur",
         "Batterietemperatur in °C": "Batterietemperatur",
     })
+
     # Change the dtypes from str to their correct type
     df['Geraet'] = df['Geraet'].astype(int)
+    df['Monat'] = df['Monat'].astype(int)
     df['Temperatur'] = df['Temperatur'].str.replace(',', '.').astype(float)
     df['Batterietemperatur'] = df['Batterietemperatur'].str.replace(',', '.').astype(float)
 
     # Transform temperatures in Celsius to Fahrenheit
-    df['Temperatur'] = (df['Temperatur'] * 9 / 5) + 32
-    df['Batterietemperatur'] = (df['Batterietemperatur'] * 9 / 5) + 32
+    for column in ['Temperatur', 'Batterietemperatur']:
+        df[column] = (df[column] * 9 / 5) + 32
 
     return df
 
